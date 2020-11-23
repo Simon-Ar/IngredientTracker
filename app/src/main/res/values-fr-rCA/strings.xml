@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="avatar_selection">Avatar Selection</string>
+    <string name="e_mail">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confrim Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_registered">Login is Already Registered</string>
+    <string name="sign_in">Sign In</string>
+    <string name="not_registered">Not registered?</string>
+</resources>
