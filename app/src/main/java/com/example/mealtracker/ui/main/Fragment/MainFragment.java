@@ -1,12 +1,13 @@
-package com.example.mealtracker.ui.main;
-
-import androidx.lifecycle.ViewModelProvider;
+package com.example.mealtracker.ui.main.Fragment;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,7 @@ import com.example.mealtracker.R;
 
 public class MainFragment extends Fragment {
 
-    private MainViewModel mViewModel;
+    View myFragment;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -26,14 +27,24 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.main_fragment, container, false);
+        myFragment =  inflater.inflate(R.layout.main_fragment, container, false);
+
+        MealsHomeFragment mealsHomeFragmentFragment = new MealsHomeFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.frmHomeMeals,mealsHomeFragmentFragment)
+                .commit();
+
+        return myFragment;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
 }
