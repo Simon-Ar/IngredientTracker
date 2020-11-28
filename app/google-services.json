@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1027320512495",
+    "firebase_url": "https://mealtracker-9d54c.firebaseio.com",
+    "project_id": "mealtracker-9d54c",
+    "storage_bucket": "mealtracker-9d54c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027320512495:android:bf82b9cf7a345e227d401a",
+        "android_client_info": {
+          "package_name": "com.example.mealtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027320512495-pvq22pt7gfq3223l53qs36vql8rl6641.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhrbEMggoMXuPV-eYHptmJT8FMjUCoY9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027320512495-pvq22pt7gfq3223l53qs36vql8rl6641.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
