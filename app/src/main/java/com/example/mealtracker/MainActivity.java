@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.mealtracker.ui.main.MainFragment;
+import com.example.mealtracker.ui.main.MealsFragment;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -8,4 +8,5 @@
     <string name="already_registered">Login is Already Registered</string>
     <string name="sign_in">Sign In</string>
     <string name="not_registered">Not registered?</string>
+    <string name="forgot_password">Forgot password?</string>
 </resources>
