@@ -5,19 +5,27 @@ import java.util.Date;
 
 public class IngredientItem {
 
-    Date entered;
-    Date expiry;
+    private final String[][] STYLES ={
+            {"@drawable/ic_baseline_check_circle_24","@color/card_red","@color/card_title_red"}    ,
+            {"@drawable/ic_baseline_check_circle_24","@color/card_yellow","@color/card_title_yellow"},
+            {"@drawable/ic_baseline_check_circle_24","@color/card_green","@color/card_title_green"}
+    };
+
+    Calendar entered;
+    Calendar expiry;
     String name;
 
-    public void IngredientItem(String name,String expire){
-
+    public IngredientItem(Calendar entered, Calendar expiry, String name) {
+        this.entered = entered;
+        this.expiry = expiry;
+        this.name = name;
     }
 
-    public Date getEntered() {
+    public Calendar getEntered() {
         return entered;
     }
 
-    public Date getExpiry() {
+    public Calendar getExpiry() {
         return expiry;
     }
 
@@ -25,7 +33,18 @@ public class IngredientItem {
         return name;
     }
 
-    public String getTimeLeft(){
+    public Date getTimeLeft(){
         return null;
     }
+
+    public String getIcon(){
+        return null;
+    }
+
+    public String getStyle(){
+       // if(getTimeLeft().getTime()<Calendar.DA)
+        return null;
+    }
+
+    //TODO make this and make the timer to count how much time is left
 }

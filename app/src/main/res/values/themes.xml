@@ -13,4 +13,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="RedCardTheme" parent="Widget.MaterialComponents.CardView">
+        <item name="redCardStyle">@style/RedCardStyle</item>
+    </style>
 </resources>
