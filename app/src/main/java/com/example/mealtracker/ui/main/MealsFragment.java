@@ -1,18 +1,10 @@
 package com.example.mealtracker.ui.main;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.text.Html;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,18 +14,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.mealtracker.Meal;
-import com.example.mealtracker.MealList;
-import com.example.mealtracker.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import org.w3c.dom.Text;
+import com.example.mealtracker.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class MealsFragment extends Fragment {
@@ -54,7 +44,7 @@ public class MealsFragment extends Fragment {
         View result = inflater.inflate(R.layout.meals_fragment, container, false);
 
         meal_adapter = new MealAdapter(getContext());
-        meal_list_view = (ListView) result.findViewById(R.id.meal_list_view);
+        meal_list_view = result.findViewById(R.id.meal_list_view);
         meal_list_view.setAdapter(meal_adapter);
 
         Hashtable<String, Meal> meal_table = new Hashtable<String, Meal>();
@@ -120,12 +110,12 @@ public class MealsFragment extends Fragment {
                 }
 
                 ArrayAdapter<String> recipe_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, recipe_strings);
-                ListView recipe_list = (ListView) custom_view.findViewById(R.id.dialog_meal_recipe);
+                ListView recipe_list = custom_view.findViewById(R.id.dialog_meal_recipe);
                 recipe_list.setAdapter(recipe_adapter);
 
-                TextView dialog_meal_name = (TextView) custom_view.findViewById(R.id.dialog_meal_name);
-                TextView dialog_meal_time = (TextView) custom_view.findViewById(R.id.dialog_meal_time);
-                TextView dialog_meal_size = (TextView) custom_view.findViewById(R.id.dialog_meal_size);
+                TextView dialog_meal_name = custom_view.findViewById(R.id.dialog_meal_name);
+                TextView dialog_meal_time = custom_view.findViewById(R.id.dialog_meal_time);
+                TextView dialog_meal_size = custom_view.findViewById(R.id.dialog_meal_size);
 
                 String dialog_name_text = "<b><u>" + selected_meal.getName() + "</u></b>";
 
@@ -176,7 +166,7 @@ public class MealsFragment extends Fragment {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View result = inflater.inflate(R.layout.meal_layout, null);
-            TextView meal_name = (TextView) result.findViewById(R.id.meal_name);
+            TextView meal_name = result.findViewById(R.id.meal_name);
             String meal_name_bold = "<b><u>" + getItem(position).getName()+ "</u></b>";
             meal_name.setText(Html.fromHtml(meal_name_bold));
             return result;

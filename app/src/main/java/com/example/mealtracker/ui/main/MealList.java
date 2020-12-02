@@ -1,4 +1,4 @@
-package com.example.mealtracker;
+package com.example.mealtracker.ui.main;
 
 import java.util.Hashtable;
 
