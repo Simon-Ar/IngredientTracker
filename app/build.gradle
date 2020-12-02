@@ -2,6 +2,14 @@ plugins {
     id 'com.android.application'
 }
 
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -39,6 +47,7 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.google.android.material:material:<version>'
 
 
     annotationProcessor 'com.google.auto.value:auto-value:1.4'

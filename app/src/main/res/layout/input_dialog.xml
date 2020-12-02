@@ -4,26 +4,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
+        android:id="@+id/inputName"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginVertical="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Expiry: "
             android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_weight="0"
             />
 
-        <EditText
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
+            android:id="@+id/date"
+            android:clickable="true"
+            android:layout_gravity="end"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:textAlignment="viewEnd"
             />
 
-    <RelativeLayout
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         >
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:text="Cancel"
+            android:textColor="@color/black"
+            android:id="@+id/btnCancel"
+            android:layout_weight="1"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
@@ -32,18 +75,10 @@
             android:text="Create"
             android:textColor="@color/black"
             android:id="@+id/btnCreate"
+            android:layout_weight="1"
             />
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:text="Cancel"
-            android:textColor="@color/black"
-            android:layout_alignParentRight="true"
-            android:id="@+id/btnCancel"
-            />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
