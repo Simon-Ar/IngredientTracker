@@ -3,9 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_margin="16dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:padding="8dp"
-        android:layout_width="184dp"
-        android:layout_height="184dp"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         android:outlineAmbientShadowColor="@color/black"
@@ -17,7 +16,7 @@
 
         <ImageView
             android:id="@+id/mealItemImg"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
@@ -27,13 +26,14 @@
         <TextView
             android:id="@+id/mealItemName"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:autoSizeMaxTextSize="40dp"
             android:autoSizeMinTextSize="14dp"
             android:text="Food"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:layout_alignParentBottom="true"
+            android:layout_margin="4dp"
             />
 
         </RelativeLayout>

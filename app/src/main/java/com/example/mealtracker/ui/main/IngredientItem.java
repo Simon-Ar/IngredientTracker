@@ -1,31 +1,38 @@
 package com.example.mealtracker.ui.main;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.Period;
+
 import java.util.Calendar;
-import java.util.Date;
 
-public class IngredientItem {
+public class IngredientItem implements Comparable<IngredientItem> {
 
-    private final String[][] STYLES ={
-            {"@drawable/ic_baseline_check_circle_24","@color/card_red","@color/card_title_red"}    ,
-            {"@drawable/ic_baseline_check_circle_24","@color/card_yellow","@color/card_title_yellow"},
-            {"@drawable/ic_baseline_check_circle_24","@color/card_green","@color/card_title_green"}
-    };
 
-    Calendar entered;
-    Calendar expiry;
+
+    DateTime entered;
+    DateTime expiry;
     String name;
+    Period period;
+    Days days;
+    Hours hours;
 
     public IngredientItem(Calendar entered, Calendar expiry, String name) {
-        this.entered = entered;
-        this.expiry = expiry;
+        this.entered = new DateTime(entered);
+        this.expiry = new DateTime(expiry);
         this.name = name;
+        period = new Period(this.entered,this.expiry);
+        days = period.toStandardWeeks().toStandardDays();
+        hours = period.toStandardHours();
+
     }
 
-    public Calendar getEntered() {
+    public DateTime getEntered() {
         return entered;
     }
 
-    public Calendar getExpiry() {
+    public DateTime getExpiry() {
         return expiry;
     }
 
@@ -33,18 +40,27 @@ public class IngredientItem {
         return name;
     }
 
-    public Date getTimeLeft(){
-        return null;
+    public long[] getTimeLeft(){
+        return new long[]{period.getDays()+(period.getWeeks()*7),period.getHours()};
     }
 
-    public String getIcon(){
-        return null;
+    @Override
+    public String toString() {
+        return "IngredientItem{" +
+                " entered= " + entered +
+                ", expiry= " + expiry +
+                ", name= '" + name + '\'' +
+                ", period= " + getTimeLeft()[0] + " " + getTimeLeft()[1] +
+                '}';
     }
 
-    public String getStyle(){
-       // if(getTimeLeft().getTime()<Calendar.DA)
-        return null;
+    @Override
+    public int compareTo(IngredientItem o) {
+        if(this.days.getDays()<o.days.getDays())
+            return -1;
+        else if (this.days.getDays()>o.days.getDays())
+            return 1;
+        else
+            return 0;
     }
-
-    //TODO make this and make the timer to count how much time is left
 }

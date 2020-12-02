@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +17,8 @@ import com.example.mealtracker.ui.main.Adapter.MealsRecyclerViewAdapter;
 import java.util.ArrayList;
 
 public class MealsHomeFragment extends Fragment {
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImgURL = new ArrayList<>();
+    private final ArrayList<String> mNames = new ArrayList<>();
+    private final ArrayList<String> mImgURL = new ArrayList<>();
 
     private void getImages(){
         mImgURL.add("https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F5762688.jpg");
@@ -57,7 +57,6 @@ public class MealsHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getImages();
-
     }
 
     @Override

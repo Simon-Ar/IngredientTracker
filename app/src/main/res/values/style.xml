@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="RedCardStyle">
-        <item name="RedTitleCard">@color/card_red</item>
-        <item name="RedCard">@color/card_title_red</item>
-    </style>
-
-</resources>
