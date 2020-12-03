@@ -62,25 +62,39 @@ public class MainActivity extends AppCompatActivity {
         mIngredients.add(
                 new IngredientItem(today,tomorrow,"Chicken")
         );
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Carrot")
+        );
         tomorrow.add(Calendar.DATE,2);
         mIngredients.add(
                 new IngredientItem(today,tomorrow,"Beef")
+        );
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Celery")
         );
         tomorrow.add(Calendar.DATE,3);
         mIngredients.add(
                 new IngredientItem(today,tomorrow,"Onion")
         );
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Spinach")
+        );
         tomorrow.add(Calendar.DATE,2);
         mIngredients.add(
                 new IngredientItem(today,tomorrow,"Pork")
+        );
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Fish")
         );
 
         mIngredients.sort(IngredientItem::compareTo);
 
         MainFragment mainFragment = new MainFragment();
+//        MealsFragment mealsFragment = new MealsFragment();
+//        TimerFragment timerFragment = new TimerFragment(mIngredients.size());
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.frmMain,mainFragment)
+                .replace(R.id.frmMain, mainFragment)
                 .commit();
 
     }

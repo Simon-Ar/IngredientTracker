@@ -26,7 +26,7 @@ public class MainFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         myFragment =  inflater.inflate(R.layout.main_fragment, container, false);
         MealsHomeFragment mealsHomeFragment = new MealsHomeFragment();
-        TimerHomeFragment timerHomeFragment = new TimerHomeFragment();
+        TimerHomeFragment timerHomeFragment = new TimerHomeFragment(4);
         timerHomeFragment.setArguments(getArguments());
         FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.frmHomeMeals,mealsHomeFragment);

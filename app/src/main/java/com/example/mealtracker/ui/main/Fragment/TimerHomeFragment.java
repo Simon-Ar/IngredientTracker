@@ -21,13 +21,14 @@ import java.util.ArrayList;
 public class TimerHomeFragment extends Fragment {
 
     private final ArrayList<IngredientItem> mIngredients = new ArrayList<>();
+    int limit;
 
-    public TimerHomeFragment() {
-        // Required empty public constructor
+    public TimerHomeFragment(int limit) {
+        this.limit = limit;
     }
 
-    public static TimerHomeFragment newInstance(String param1, String param2) {
-        TimerHomeFragment fragment = new TimerHomeFragment();
+    public static TimerHomeFragment newInstance(String param1, String param2, int max) {
+        TimerHomeFragment fragment = new TimerHomeFragment(max);
         return fragment;
     }
 
@@ -35,7 +36,7 @@ public class TimerHomeFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewTimers);
         recyclerView.setLayoutManager(layoutManager);
-        TimerRecyclerViewAdapter adapter = new TimerRecyclerViewAdapter(MainActivity.mIngredients);
+        TimerRecyclerViewAdapter adapter = new TimerRecyclerViewAdapter(MainActivity.mIngredients, limit);
         recyclerView.setAdapter(adapter);
     }
 

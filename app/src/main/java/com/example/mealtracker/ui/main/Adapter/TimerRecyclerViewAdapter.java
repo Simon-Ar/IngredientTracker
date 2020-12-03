@@ -21,10 +21,11 @@ import java.util.ArrayList;
 public class TimerRecyclerViewAdapter extends RecyclerView.Adapter<TimerRecyclerViewAdapter.TimerViewHolder> {
 
     ArrayList<IngredientItem> mIngredients;
-    int limit = 4;
+    int limit;
 
-    public TimerRecyclerViewAdapter(ArrayList<IngredientItem> mIngredients) {
+    public TimerRecyclerViewAdapter(ArrayList<IngredientItem> mIngredients, int limit) {
         this.mIngredients = mIngredients;
+        this.limit = limit;
     }
 
 
