@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<IngredientItem> mIngredients = new ArrayList<>();
     private AnimatedBottomBar bottomBar;
+    private MainFragment mainFragment = new MainFragment();
+    private MealsFragment mealsFragment = new MealsFragment();
+    private TimerFragment timerFragment;
 
 
     @Override
@@ -58,10 +61,39 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Log.i("Main Activity", this.toString());
+        tomorrow.add(Calendar.DATE,1);
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Chicken")
+        );
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Carrot")
+        );
+        tomorrow.add(Calendar.DATE,2);
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Beef")
+        );
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Celery")
+        );
+        tomorrow.add(Calendar.DATE,3);
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Onion")
+        );
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Spinach")
+        );
+        tomorrow.add(Calendar.DATE,2);
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Pork")
+        );
+        mIngredients.add(
+                new IngredientItem(today,tomorrow,"Fish")
+        );
         mIngredients.sort(IngredientItem::compareTo);
-        MainFragment mainFragment = new MainFragment();
+        timerFragment = new TimerFragment(mIngredients.size());
+        FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.frmMain,mainFragment)
+                .replace(R.id.frmMain, mainFragment)
                 .commit();
 
     }

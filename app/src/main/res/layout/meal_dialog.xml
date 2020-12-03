@@ -39,17 +39,34 @@
         android:layout_margin="5dp"
         android:gravity="center" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="Instructions:"/>
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="5dp"-->
+<!--        android:gravity="center"-->
+<!--        android:text="Ingredients:"/>-->
 
-    <ListView
-        android:id="@+id/dialog_meal_recipe"
+<!--    <ExpandableListView-->
+<!--        android:id="@+id/dialog_meal_ingredients"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"-->
+<!--        android:divider="@android:color/darker_gray"-->
+<!--        android:dividerHeight="0.5dp" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="5dp"-->
+<!--        android:gravity="center"-->
+<!--        android:text="Instructions:"/>-->
+
+    <ExpandableListView
+        android:id="@+id/dialog_meal_info"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp" />
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp" />
 
 </LinearLayout>

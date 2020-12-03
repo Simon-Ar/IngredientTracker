@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,9 +20,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mealtracker.R;
+import com.example.mealtracker.ui.main.Adapter.CustomExpandableListAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +35,10 @@ public class MealsFragment extends Fragment {
     ArrayList<Meal> meals = new ArrayList<Meal>();
     MealList mealList = new MealList(new Hashtable<String, Meal>());
     ListView meal_list_view;
+
+    ExpandableListView meal_data_list_view;
     MealAdapter meal_adapter;
+    CustomExpandableListAdapter meal_data_adapter;
 
     public static MealsFragment newInstance() {
         return new MealsFragment();
@@ -80,8 +87,31 @@ public class MealsFragment extends Fragment {
         recipe_2.put(9, "Bake in an oven at 300F until top is golden brown.");
         recipe_2.put(10, "Let cool for 10 minutes before serving.");
 
-        Meal meal_1 = new Meal(meal_1_name, time_1, size_1, recipe_1);
-        Meal meal_2 = new Meal(meal_2_name, time_2, size_2, recipe_2);
+        ArrayList<IngredientItem> ingredients_1 = new ArrayList<IngredientItem>();
+        ArrayList<IngredientItem> ingredients_2 = new ArrayList<IngredientItem>();
+
+        Calendar today = Calendar.getInstance();
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DATE,1);
+
+        ingredients_1.add(new IngredientItem(today,tomorrow,"Water"));
+        ingredients_1.add(new IngredientItem(today,tomorrow,"Chicken"));
+        ingredients_1.add(new IngredientItem(today,tomorrow,"Carrots"));
+        ingredients_1.add(new IngredientItem(today,tomorrow,"Celery"));
+        ingredients_1.add(new IngredientItem(today,tomorrow,"Onions"));
+        ingredients_1.add(new IngredientItem(today,tomorrow,"Salt"));
+        ingredients_1.add(new IngredientItem(today,tomorrow,"Black Pepper"));
+
+        ingredients_2.add(new IngredientItem(today,tomorrow,"Water"));
+        ingredients_2.add(new IngredientItem(today,tomorrow,"Macaroni"));
+        ingredients_2.add(new IngredientItem(today,tomorrow,"Butter"));
+        ingredients_2.add(new IngredientItem(today,tomorrow,"Cream"));
+        ingredients_2.add(new IngredientItem(today,tomorrow,"Cheese"));
+        ingredients_2.add(new IngredientItem(today,tomorrow,"Salt"));
+        ingredients_2.add(new IngredientItem(today,tomorrow,"Black Pepper"));
+
+        Meal meal_1 = new Meal(meal_1_name, time_1, size_1, recipe_1, ingredients_1);
+        Meal meal_2 = new Meal(meal_2_name, time_2, size_2, recipe_2, ingredients_2);
 
         meal_table.put(meal_1_name, meal_1);
         meal_table.put(meal_2_name, meal_2);
@@ -96,22 +126,17 @@ public class MealsFragment extends Fragment {
 
                 Meal selected_meal = meals.get(position);
 
-                ArrayList<String> recipe_strings = new ArrayList<String>();
+                ArrayList<String> recipe_strings = selected_meal.getRecipeSteps();
+                ArrayList<String> ingredient_names = selected_meal.getIngredientNames();
 
-                List<Integer> keys = Collections.list(selected_meal.getRecipe().keys());
-                Collections.sort(keys);
+                HashMap<String, ArrayList<String>> meal_data = new HashMap<String, ArrayList<String>>();
+                meal_data.put("Ingredients", ingredient_names);
+                meal_data.put("Instructions", recipe_strings);
+                ArrayList<String> meal_info_titles = new ArrayList<String>(meal_data.keySet());
 
-                for (Integer key: keys) {
-                    recipe_strings.add("Step " + key + ": " + selected_meal.getRecipe().get(key));
-                }
-
-                for (String step : recipe_strings) {
-                    Log.i(ACTIVITY_NAME, step);
-                }
-
-                ArrayAdapter<String> recipe_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, recipe_strings);
-                ListView recipe_list = custom_view.findViewById(R.id.dialog_meal_recipe);
-                recipe_list.setAdapter(recipe_adapter);
+                meal_data_list_view = custom_view.findViewById(R.id.dialog_meal_info);
+                meal_data_adapter = new CustomExpandableListAdapter(getActivity(), meal_info_titles, meal_data);
+                meal_data_list_view.setAdapter(meal_data_adapter);
 
                 TextView dialog_meal_name = custom_view.findViewById(R.id.dialog_meal_name);
                 TextView dialog_meal_time = custom_view.findViewById(R.id.dialog_meal_time);
@@ -167,8 +192,7 @@ public class MealsFragment extends Fragment {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View result = inflater.inflate(R.layout.meal_layout, null);
             TextView meal_name = result.findViewById(R.id.meal_name);
-            String meal_name_bold = "<b><u>" + getItem(position).getName()+ "</u></b>";
-            meal_name.setText(Html.fromHtml(meal_name_bold));
+            meal_name.setText(getItem(position).getName());
             return result;
         }
     }
