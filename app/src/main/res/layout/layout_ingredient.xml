@@ -1,51 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timerCardLayout"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:outlineAmbientShadowColor="@color/black"
-        android:layout_margin="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ingredientCardLayout"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    android:outlineAmbientShadowColor="@color/black"
+    android:layout_margin="16dp"
     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_baseline_fastfood_24"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/timerCard"
-            android:background="@color/card_red"
             android:orientation="vertical"
+            android:id="@+id/ingredientCard"
+            android:background="@color/card_red"
             >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:id="@+id/timerTitleCard"
-                android:background="@color/card_title_red"
-                android:padding="1dp"
+                android:orientation="horizontal"
                 >
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_baseline_check_circle_24"
-                    app:tint="@color/black"
-                    android:id="@+id/ingredientIcon"
-                    android:scaleType="fitXY"
-                    android:layout_margin="2dp"
-                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Chicken"
                     android:id="@+id/ingredientName"
-                    android:textAlignment="center"
                     android:layout_marginHorizontal="8dp"
                     android:textColor="@color/black"
-                    android:layout_gravity="center"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date Added: "
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="4dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ingredientAddedDate"
+                    android:textColor="@color/black"
                     />
 
             </LinearLayout>
@@ -54,12 +69,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="8dp"
+                android:orientation="horizontal"
                 >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/timerDaysLbl"
-                    android:layout_below="@id/timerTitleCard"
                     android:text="Days:"
                     android:textColor="@color/black"
                     />
@@ -67,8 +82,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/timerDaysLbl"
-                    android:layout_below="@id/timerTitleCard"
                     android:layout_marginStart="12dp"
                     android:id="@+id/timerDays"
                     android:textColor="@color/black"
@@ -79,13 +92,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="8dp"
+                android:orientation="horizontal"
                 >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/timerHoursLbl"
-                    android:layout_below="@id/timerDaysLbl"
                     android:text="Hours:"
                     android:textColor="@color/black"
                     />
@@ -94,17 +107,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/timerHours"
-                    android:layout_toEndOf="@+id/timerHoursLbl"
-                    android:layout_below="@id/timerDaysLbl"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="6dp"
                     android:textColor="@color/black"
                     />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 >
 
                 <com.google.android.material.button.MaterialButton
@@ -119,7 +131,7 @@
                     android:paddingStart="8dp"
                     android:layout_weight="1"
                     />
-                
+
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -132,5 +144,10 @@
                     />
 
             </LinearLayout>
+
+
+
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

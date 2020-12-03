@@ -1,26 +1,30 @@
 package com.example.mealtracker.ui.main;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.mealtracker.R;
+import com.example.mealtracker.ui.main.Fragment.IngredientFragment;
 import com.example.mealtracker.ui.main.Fragment.MainFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import nl.joery.animatedbottombar.AnimatedBottomBar;
+
 public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<IngredientItem> mIngredients = new ArrayList<>();
-    private FloatingActionButton mFab;
+    private AnimatedBottomBar bottomBar;
+    private MainFragment mainFragment = new MainFragment();
+    private MealsFragment mealsFragment = new MealsFragment();
+    private TimerFragment timerFragment;
 
 
     @Override
@@ -28,32 +32,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         Calendar today = Calendar.getInstance();
-        Calendar tomorrow = Calendar.getInstance();
-        mFab = findViewById(R.id.addFav);
+        bottomBar = findViewById(R.id.navBar);
+        FragmentManager fm = getSupportFragmentManager();
 
-        mFab.setOnClickListener(new View.OnClickListener() {
+        bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+            public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NotNull AnimatedBottomBar.Tab tab1) {
+                switch(i){
+                    case 1:
+                        MainFragment mainFragment = new MainFragment();
+                        fm.beginTransaction()
+                                .replace(R.id.frmMain,mainFragment)
+                                .commit();
+                        break;
+                    case 0:
+                        IngredientFragment ingredientFragment = new IngredientFragment();
+                        fm.beginTransaction()
+                                .replace(R.id.frmMain,ingredientFragment)
+                                .commit();
 
-                alert.setTitle("Title");
-                alert.setMessage("Message");
-                final EditText input = new EditText(MainActivity.this);
-                alert.setView(input);
+                }
+            }
 
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
+            @Override
+            public void onTabReselected(int i, @NotNull AnimatedBottomBar.Tab tab) {
 
-                    }
-                });
-
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // Canceled.
-                    }
-                });
-
-                alert.show();
             }
         });
 
@@ -86,16 +89,13 @@ public class MainActivity extends AppCompatActivity {
         mIngredients.add(
                 new IngredientItem(today,tomorrow,"Fish")
         );
-
         mIngredients.sort(IngredientItem::compareTo);
-
-        MainFragment mainFragment = new MainFragment();
-//        MealsFragment mealsFragment = new MealsFragment();
-//        TimerFragment timerFragment = new TimerFragment(mIngredients.size());
+        timerFragment = new TimerFragment(mIngredients.size());
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
                 .replace(R.id.frmMain, mainFragment)
                 .commit();
 
     }
+
 }
