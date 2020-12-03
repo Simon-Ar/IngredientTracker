@@ -24,6 +24,7 @@ import com.example.mealtracker.ui.main.MainActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
