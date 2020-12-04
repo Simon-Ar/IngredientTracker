@@ -1,4 +1,4 @@
-package com.example.mealtracker.ui.main.Fragment;
+package com.example.ingredienttracker.ui.main.Fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -17,10 +17,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mealtracker.R;
-import com.example.mealtracker.ui.main.Adapter.TimerRecyclerViewAdapter;
-import com.example.mealtracker.ui.main.IngredientItem;
-import com.example.mealtracker.ui.main.MainActivity;
+import com.example.ingredienttracker.R;
+import com.example.ingredienttracker.ui.main.Adapter.TimerRecyclerViewAdapter;
+import com.example.ingredienttracker.ui.main.IngredientItem;
+import com.example.ingredienttracker.ui.main.MainActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

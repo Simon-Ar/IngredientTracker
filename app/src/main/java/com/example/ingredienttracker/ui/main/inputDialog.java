@@ -1,4 +1,4 @@
-package com.example.mealtracker.ui.main;
+package com.example.ingredienttracker.ui.main;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
-import com.example.mealtracker.R;
+import com.example.ingredienttracker.R;
 
 public class inputDialog extends Dialog implements View.OnClickListener {
 

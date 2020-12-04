@@ -1,21 +1,17 @@
-package com.example.mealtracker.ui.main;
-
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
+package com.example.ingredienttracker.ui.main;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mealtracker.R;
-import com.example.mealtracker.ui.main.Fragment.MealsHomeFragment;
-import com.example.mealtracker.ui.main.Fragment.TimerHomeFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.ingredienttracker.R;
+import com.example.ingredienttracker.ui.main.Fragment.TimerHomeFragment;
 
 public class TimerFragment extends Fragment {
     View timer_fragment;

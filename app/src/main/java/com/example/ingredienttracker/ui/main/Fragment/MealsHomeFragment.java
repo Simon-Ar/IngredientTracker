@@ -1,4 +1,4 @@
-package com.example.mealtracker.ui.main.Fragment;
+package com.example.ingredienttracker.ui.main.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mealtracker.R;
-import com.example.mealtracker.ui.main.Adapter.MealsRecyclerViewAdapter;
+import com.example.ingredienttracker.R;
+import com.example.ingredienttracker.ui.main.Adapter.MealsRecyclerViewAdapter;
 
 import java.util.ArrayList;
 

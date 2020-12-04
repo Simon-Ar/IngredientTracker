@@ -1,4 +1,4 @@
-package com.example.mealtracker.ui.main.Adapter;
+package com.example.ingredienttracker.ui.main.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mealtracker.R;
+import com.example.ingredienttracker.R;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class MealsRecyclerViewAdapter extends RecyclerView.Adapter<MealsRecycler
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImgURL = new ArrayList<>();
-    private Context mContext;
+    private final Context mContext;
 
     public MealsRecyclerViewAdapter(ArrayList<String> mNames, ArrayList<String> mImgURL, Context mContext) {
         this.mNames = mNames;

@@ -1,4 +1,4 @@
-package com.example.mealtracker.ui.main;
+package com.example.ingredienttracker.ui.main;
 
 import android.os.Bundle;
 
@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.mealtracker.R;
-import com.example.mealtracker.ui.main.Fragment.IngredientFragment;
-import com.example.mealtracker.ui.main.Fragment.MainFragment;
+import com.example.ingredienttracker.R;
+import com.example.ingredienttracker.ui.main.Fragment.IngredientFragment;
+import com.example.ingredienttracker.ui.main.Fragment.MainFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;

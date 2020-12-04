@@ -1,4 +1,4 @@
-package com.example.mealtracker.ui.main.Fragment;
+package com.example.ingredienttracker.ui.main.Fragment;
 
 import android.Manifest;
 import android.content.DialogInterface;

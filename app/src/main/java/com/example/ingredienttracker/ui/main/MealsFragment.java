@@ -1,11 +1,10 @@
-package com.example.mealtracker.ui.main;
+package com.example.ingredienttracker.ui.main;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.mealtracker.R;
-import com.example.mealtracker.ui.main.Adapter.CustomExpandableListAdapter;
+import com.example.ingredienttracker.R;
+import com.example.ingredienttracker.ui.main.Adapter.CustomExpandableListAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Set;
 
 public class MealsFragment extends Fragment {

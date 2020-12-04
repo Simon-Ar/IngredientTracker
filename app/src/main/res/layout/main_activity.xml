@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:id="@+id/topAppBar"
-            app:title="Meal Tracker"
+            app:title="@string/app_name"
             app:menu="@menu/top_bar"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />

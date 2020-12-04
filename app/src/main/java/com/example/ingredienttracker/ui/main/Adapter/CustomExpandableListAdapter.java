@@ -1,4 +1,4 @@
-package com.example.mealtracker.ui.main.Adapter;
+package com.example.ingredienttracker.ui.main.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,16 +8,15 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.example.mealtracker.R;
+import com.example.ingredienttracker.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
-    private Context context;
-    private ArrayList<String> list_titles;
-    private HashMap<String, ArrayList<String>> list_data;
+    private final Context context;
+    private final ArrayList<String> list_titles;
+    private final HashMap<String, ArrayList<String>> list_data;
 
     public CustomExpandableListAdapter(Context context, ArrayList<String> titles, HashMap<String, ArrayList<String>> data) {
         this.context = context;

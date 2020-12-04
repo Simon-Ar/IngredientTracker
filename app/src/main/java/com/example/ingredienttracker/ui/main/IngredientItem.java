@@ -1,4 +1,4 @@
-package com.example.mealtracker.ui.main;
+package com.example.ingredienttracker.ui.main;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;

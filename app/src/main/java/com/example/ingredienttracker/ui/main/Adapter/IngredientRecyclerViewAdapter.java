@@ -1,4 +1,4 @@
-package com.example.mealtracker.ui.main.Adapter;
+package com.example.ingredienttracker.ui.main.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mealtracker.R;
-import com.example.mealtracker.ui.main.IngredientItem;
+import com.example.ingredienttracker.R;
+import com.example.ingredienttracker.ui.main.IngredientItem;
 
 import org.joda.time.DateTime;
 
