@@ -13,7 +13,7 @@ import com.example.ingredienttracker.R;
 import com.example.ingredienttracker.ui.main.Fragment.IngredientFragment;
 import com.example.ingredienttracker.ui.main.Fragment.MainFragment;
 import com.example.ingredienttracker.ui.main.Fragment.MealsFragment;
-import com.example.ingredienttracker.ui.main.Fragment.TimerFragment;
+import com.example.ingredienttracker.ui.main.Fragment.TimerHomeFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             .commit();
                     current = mealsFragment;
                 } else if (tab1 == tabs.get(3)) {
-                    TimerFragment timerFragment = new TimerFragment(mIngredients.size());
+                    TimerHomeFragment timerFragment = new TimerHomeFragment(mIngredients.size(),false);
                     fm.beginTransaction()
                             .remove(current)
                             .replace(R.id.frmMain, timerFragment)
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     String expiry = j.getString("expiry");
                     Log.i("test2", name + " " + entered + " " + expiry);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("mm-dd", Locale.ENGLISH);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
                     Calendar today = Calendar.getInstance();
                     Calendar tomorrow = Calendar.getInstance();
 

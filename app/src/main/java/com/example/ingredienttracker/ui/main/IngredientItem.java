@@ -4,12 +4,11 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
 import org.joda.time.Period;
+import org.joda.time.PeriodType;
 
 import java.util.Calendar;
 
 public class IngredientItem implements Comparable<IngredientItem> {
-
-
 
     DateTime entered;
     DateTime expiry;
@@ -22,10 +21,9 @@ public class IngredientItem implements Comparable<IngredientItem> {
         this.entered = new DateTime(entered);
         this.expiry = new DateTime(expiry);
         this.name = name;
-        period = new Period(this.entered,this.expiry);
-        days = period.toStandardWeeks().toStandardDays();
+        period = new Period(this.entered,this.expiry, PeriodType.days());
+        days = period.toStandardDays();
         hours = period.toStandardHours();
-
     }
 
     public DateTime getEntered() {
