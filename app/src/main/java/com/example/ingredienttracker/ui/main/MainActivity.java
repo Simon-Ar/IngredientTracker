@@ -21,6 +21,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        );
 
         try {
-            new DataRequest().execute(new URL("http://192.168.1.181:8080/api/v1/users/123"));
+            new DataRequest().execute(new URL("http://192.168.1.181:8080/api/v1/users/" + FirebaseAuth.getInstance().getCurrentUser().getUid()));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -152,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         current = mainFragment;
     }
 
-    public void getDetails(int position){
+    public void getDetails(int position) {
         IngredientFragment ingredientFragment = new IngredientFragment();
         fm.beginTransaction()
                 .remove(current)
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         current = ingredientFragment;
         SearchView searcher = findViewById(R.id.search);
         if (position != 0) {
-            searcher.setQuery(mIngredients.get(position).getName(),true);
+            searcher.setQuery(mIngredients.get(position).getName(), true);
         }
     }
 
@@ -191,14 +193,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     String name = j.getString("name");
                     String entered = j.getString("entered");
                     String expiry = j.getString("expiry");
-                    Log.i("test2", name + " " + entered + " " + expiry);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("mm-dd", Locale.ENGLISH);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                     Calendar today = Calendar.getInstance();
                     Calendar tomorrow = Calendar.getInstance();
 
                     today.setTime(sdf.parse(entered));
                     tomorrow.setTime(sdf.parse(expiry));
+                    Log.i("test", today.getTime().toString());
                     mIngredients.add(new IngredientItem(today, tomorrow, name));
                 }
                 return result;
