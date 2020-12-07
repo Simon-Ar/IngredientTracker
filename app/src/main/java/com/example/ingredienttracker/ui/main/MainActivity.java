@@ -1,6 +1,8 @@
 package com.example.ingredienttracker.ui.main;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -18,11 +20,23 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import nl.joery.animatedbottombar.AnimatedBottomBar;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -93,33 +107,40 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         tomorrow.add(Calendar.DATE, 1);
-        mIngredients.add(
-                new IngredientItem(today, tomorrow, "Chicken")
-        );
-        mIngredients.add(
-                new IngredientItem(today, tomorrow, "Carrot")
-        );
-        tomorrow.add(Calendar.DATE, 2);
-        mIngredients.add(
-                new IngredientItem(today, tomorrow, "Beef")
-        );
-        mIngredients.add(
-                new IngredientItem(today, tomorrow, "Celery")
-        );
-        tomorrow.add(Calendar.DATE, 3);
-        mIngredients.add(
-                new IngredientItem(today, tomorrow, "Onion")
-        );
-        mIngredients.add(
-                new IngredientItem(today, tomorrow, "Spinach")
-        );
-        tomorrow.add(Calendar.DATE, 2);
-        mIngredients.add(
-                new IngredientItem(today, tomorrow, "Pork")
-        );
-        mIngredients.add(
-                new IngredientItem(today, tomorrow, "Fish")
-        );
+//        mIngredients.add(
+//                new IngredientItem(today, tomorrow, "Chicken")
+//        );
+//        mIngredients.add(
+//                new IngredientItem(today, tomorrow, "Carrot")
+//        );
+//        tomorrow.add(Calendar.DATE, 2);
+//        mIngredients.add(
+//                new IngredientItem(today, tomorrow, "Beef")
+//        );
+//        mIngredients.add(
+//                new IngredientItem(today, tomorrow, "Celery")
+//        );
+//        tomorrow.add(Calendar.DATE, 3);
+//        mIngredients.add(
+//                new IngredientItem(today, tomorrow, "Onion")
+//        );
+//        mIngredients.add(
+//                new IngredientItem(today, tomorrow, "Spinach")
+//        );
+//        tomorrow.add(Calendar.DATE, 2);
+//        mIngredients.add(
+//                new IngredientItem(today, tomorrow, "Pork")
+//        );
+//        mIngredients.add(
+//                new IngredientItem(today, tomorrow, "Fish")
+//        );
+
+        try {
+            new DataRequest().execute(new URL("http://192.168.1.181:8080/api/v1/users/123"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
         mIngredients.sort(IngredientItem::compareTo);
         fm.beginTransaction()
                 .replace(R.id.frmMain, mainFragment)
@@ -127,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         current = mainFragment;
 
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -137,5 +159,37 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(0, 0))
                 .title("Marker"));
+    }
+
+    public class DataRequest extends AsyncTask<URL, Integer, String> {
+
+        @Override
+        protected String doInBackground(URL... urls) {
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder().url(urls[0]).build();
+            try (Response response = client.newCall(request).execute()) {
+                String result = response.body().string();
+                JSONArray obj = new JSONArray(result);
+                for (int i = 0; i < obj.length(); i++) {
+                    JSONObject j = obj.getJSONObject(i);
+                    String name = j.getString("name");
+                    String entered = j.getString("entered");
+                    String expiry = j.getString("expiry");
+                    Log.i("test2", name + " " + entered + " " + expiry);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("mm-dd", Locale.ENGLISH);
+                    Calendar today = Calendar.getInstance();
+                    Calendar tomorrow = Calendar.getInstance();
+
+                    today.setTime(sdf.parse(entered));
+                    tomorrow.setTime(sdf.parse(expiry));
+                    mIngredients.add(new IngredientItem(today, tomorrow, name));
+                }
+                return result;
+            } catch (IOException | JSONException | ParseException e) {
+                e.printStackTrace();
+            }
+            return "Nothing";
+        }
     }
 }
