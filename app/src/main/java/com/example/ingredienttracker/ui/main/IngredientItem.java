@@ -10,8 +10,6 @@ import java.util.Calendar;
 
 public class IngredientItem implements Comparable<IngredientItem> {
 
-
-
     DateTime entered;
     DateTime expiry;
     String name;
@@ -24,9 +22,8 @@ public class IngredientItem implements Comparable<IngredientItem> {
         this.expiry = new DateTime(expiry);
         this.name = name;
         period = new Period(this.entered,this.expiry, PeriodType.days());
-        days = period.toStandardWeeks().toStandardDays();
+        days = period.toStandardDays();
         hours = period.toStandardHours();
-
     }
 
     public DateTime getEntered() {

@@ -48,19 +48,17 @@ public class TimerHomeFragment extends Fragment {
     private AlertDialog alertDialog;
     private DatePickerDialog picker;
     private TimerRecyclerViewAdapter adapter;
+    private boolean home;
+    private RecyclerView recyclerView;
 
-    public TimerHomeFragment(int limit) {
+    public TimerHomeFragment(int limit, boolean home) {
         this.limit = limit;
     }
 
-    public static TimerHomeFragment newInstance(String param1, String param2, int max) {
-        TimerHomeFragment fragment = new TimerHomeFragment(max);
-        return fragment;
-    }
 
     private void initRecyclerView(View view) {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewTimers);
+        recyclerView = view.findViewById(R.id.recyclerViewTimers);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new TimerRecyclerViewAdapter(MainActivity.mIngredients, limit);
         recyclerView.setAdapter(adapter);
@@ -103,7 +101,8 @@ public class TimerHomeFragment extends Fragment {
                 alert.setTitle("Add Ingredient");
                 Calendar c = Calendar.getInstance();
                 TextView date = dialogView.findViewById(R.id.date);
-                date.setText(today.get(Calendar.YEAR) + "/" + today.get(Calendar.MONTH) + "/" + today.get(Calendar.DAY_OF_MONTH));
+                date.setText(String.format("%d/%d/%d",
+                        today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DAY_OF_MONTH)));
                 TextView name = dialogView.findViewById(R.id.inputName);
                 name.setText("Chicken");
                 Button mBtnCreate = dialogView.findViewById(R.id.btnCreate);
@@ -120,36 +119,34 @@ public class TimerHomeFragment extends Fragment {
                                 c.set(Calendar.YEAR, year);
                                 c.set(Calendar.MONTH, month);
                                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                date.setText(c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH));
+                                date.setText(String.format("%d/%d/%d",
+                                        c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH)));
                             }
                         }, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
                         picker.show();
                     }
                 });
 
-                mBtnCreate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        IngredientItem newIngredient = new IngredientItem(today, c, name.getText().toString());
-                        MainActivity.mIngredients.add(newIngredient);
-                        Collections.sort(MainActivity.mIngredients);
-                        int index = MainActivity.mIngredients.indexOf(newIngredient);
-                        adapter.notifyItemInserted(index);
-                        alertDialog.dismiss();
-                        new DataRequestCreate().execute(newIngredient);
-                    }
+                mBtnCreate.setOnClickListener(v1 -> {
+                    IngredientItem newIngredient = new IngredientItem(today, c, name.getText().toString());
+                    MainActivity.mIngredients.add(newIngredient);
+                    Collections.sort(MainActivity.mIngredients);
+                    int index = MainActivity.mIngredients.indexOf(newIngredient);
+                    updateLength();
+                    adapter = new TimerRecyclerViewAdapter(MainActivity.mIngredients, limit);
+                    recyclerView.setAdapter(adapter);
+                    alertDialog.dismiss();
                 });
 
-                mBtnCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
+                mBtnCancel.setOnClickListener(v12 -> alertDialog.dismiss());
 
             }
         });
+    }
 
+    public void updateLength() {
+        if (!home)
+            this.limit = MainActivity.mIngredients.size();
     }
 
     @Override
