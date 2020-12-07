@@ -9,7 +9,7 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ingredienttracker.R;
@@ -28,17 +28,31 @@ public class IngredientFragment extends Fragment implements SearchView.OnQueryTe
         // Required empty public constructor
     }
 
-    public static IngredientFragment newInstance(String param1, String param2) {
+    public static IngredientFragment newInstance() {
         IngredientFragment fragment = new IngredientFragment();
         return fragment;
     }
 
     private void initRecyclerView(View view){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),1);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewIngredients);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new IngredientRecyclerViewAdapter(MainActivity.mIngredients);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new IngredientRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onDeleteClick(int position) {
+                MainActivity.mIngredients.remove(position);
+                adapter.notifyItemRemoved(position);
+                adapter.resetList(MainActivity.mIngredients);
+            }
+
+            @Override
+            public void onDetailClick(int position) {
+
+            }
+        });
     }
 
     @Override

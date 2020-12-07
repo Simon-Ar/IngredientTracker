@@ -3,6 +3,7 @@ package com.example.ingredienttracker.ui.main;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,12 +12,15 @@ import androidx.fragment.app.FragmentManager;
 import com.example.ingredienttracker.R;
 import com.example.ingredienttracker.ui.main.Fragment.IngredientFragment;
 import com.example.ingredienttracker.ui.main.Fragment.MainFragment;
+import com.example.ingredienttracker.ui.main.Fragment.MealsFragment;
+import com.example.ingredienttracker.ui.main.Fragment.TimerFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,11 +46,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public static ArrayList<IngredientItem> mIngredients = new ArrayList<>();
     private AnimatedBottomBar bottomBar;
+    private MaterialToolbar toolbar;
     private final MainFragment mainFragment = new MainFragment();
-    private Fragment current;
+    public Fragment current;
     private final String TAG = "Main Activity";
     private ArrayList<AnimatedBottomBar.Tab> tabs;
-
+    private final FragmentManager fm = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.main_activity);
         Calendar today = Calendar.getInstance();
         bottomBar = findViewById(R.id.navBar);
-        FragmentManager fm = getSupportFragmentManager();
         Calendar tomorrow = Calendar.getInstance();
         tabs = bottomBar.getTabs();
 
@@ -88,14 +92,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             .replace(R.id.frmMain, mapFragment)
                             .commit();
                     current = mapFragment;
-                } else if (tab1 == tabs.get(3)) {
+                } else if (tab1 == tabs.get(4)) {
                     MealsFragment mealsFragment = new MealsFragment();
                     fm.beginTransaction()
                             .remove(current)
                             .replace(R.id.frmMain, mealsFragment)
                             .commit();
                     current = mealsFragment;
-                } else if (tab1 == tabs.get(4)) {
+                } else if (tab1 == tabs.get(3)) {
                     TimerFragment timerFragment = new TimerFragment(mIngredients.size());
                     fm.beginTransaction()
                             .remove(current)
@@ -146,7 +150,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .replace(R.id.frmMain, mainFragment)
                 .commit();
         current = mainFragment;
+    }
 
+    public void getDetails(int position){
+        IngredientFragment ingredientFragment = new IngredientFragment();
+        fm.beginTransaction()
+                .remove(current)
+                .replace(R.id.frmMain, ingredientFragment)
+                .commit();
+        current = ingredientFragment;
+        SearchView searcher = findViewById(R.id.search);
+        if (position != 0) {
+            searcher.setQuery(mIngredients.get(position).getName(),true);
+        }
     }
 
 

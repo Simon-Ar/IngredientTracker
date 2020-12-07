@@ -9,4 +9,11 @@
     <string name="sign_in">Sign In</string>
     <string name="not_registered">Not registered?</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="days">Days:</string>
+    <string name="hours">Hours:</string>
+    <string name="delete">Delete</string>
+    <string name="details">Details</string>
+    <string name="ingredient_name">Ingredient Name</string>
+    <string name="date_added">Date Added:</string>
+    <string name="food">Food</string>
 </resources>

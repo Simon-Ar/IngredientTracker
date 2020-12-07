@@ -21,7 +21,6 @@ import com.example.ingredienttracker.R;
 import com.example.ingredienttracker.ui.main.Adapter.TimerRecyclerViewAdapter;
 import com.example.ingredienttracker.ui.main.IngredientItem;
 import com.example.ingredienttracker.ui.main.MainActivity;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -35,8 +34,7 @@ public class TimerHomeFragment extends Fragment {
     private FloatingActionButton mFab;
     private AlertDialog alertDialog;
     private DatePickerDialog picker;
-    TimerRecyclerViewAdapter adapter;
-    private MaterialButton mBtnDelete;
+    private TimerRecyclerViewAdapter adapter;
 
     public TimerHomeFragment(int limit) {
         this.limit = limit;
@@ -53,6 +51,22 @@ public class TimerHomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new TimerRecyclerViewAdapter(MainActivity.mIngredients, limit);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new TimerRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onDeleteClick(int position) {
+                MainActivity.mIngredients.remove(position);
+                adapter.notifyItemRemoved(position);
+                adapter.notifyItemRangeRemoved(position,1);
+
+            }
+
+            @Override
+            public void onDetailsClick(int position) {
+
+            }
+        });
+
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,11 +23,28 @@ import java.util.ArrayList;
 
 public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<IngredientRecyclerViewAdapter.IngredientViewHolder> {
 
-    ArrayList<IngredientItem> mIngredients;
-    ArrayList<IngredientItem> ingredientList = new ArrayList<>();
+    public ArrayList<IngredientItem> mIngredients;
+    public ArrayList<IngredientItem> ingredientList = new ArrayList<>();
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onDeleteClick(int position);
+        void onDetailClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
+
+
 
     public IngredientRecyclerViewAdapter(ArrayList<IngredientItem> mIngredients) {
         this.mIngredients = mIngredients;
+        ingredientList.addAll(mIngredients);
+    }
+
+    public void resetList(ArrayList<IngredientItem> mIngredients){
+        ingredientList.clear();
         ingredientList.addAll(mIngredients);
     }
 
@@ -35,7 +53,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
     @Override
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_ingredient,parent,false);
-        IngredientViewHolder ivh = new IngredientViewHolder(v);
+        IngredientViewHolder ivh = new IngredientViewHolder(v, mListener);
         return ivh;
     }
 
@@ -92,6 +110,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
             notifyDataSetChanged();
         }
     };
+
     public static class IngredientViewHolder extends RecyclerView.ViewHolder{
 
         public LinearLayout mCard;
@@ -99,16 +118,28 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
         public TextView mDays;
         public TextView mHours;
         public TextView mEntered;
+        public Button mDelete;
+        public Button mDetails;
 
-        public IngredientViewHolder(@NonNull View itemView) {
+        public IngredientViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             mCard = itemView.findViewById(R.id.ingredientCard);
             mName = itemView.findViewById(R.id.ingredientName);
             mEntered = itemView.findViewById(R.id.ingredientAddedDate);
             mDays = itemView.findViewById(R.id.timerDays);
             mHours = itemView.findViewById(R.id.timerHours);
+            mDelete = itemView.findViewById(R.id.btnIngredientDelete);
+            mDetails = itemView.findViewById(R.id.btnIngredientsDetails);
 
+            mDelete.setOnClickListener(v -> {
+                if (listener!=null){
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION){
+                        listener.onDeleteClick(position);
+                        listener.onDetailClick(position);
+                    }
+                }
+            });
         }
-
     }
 }

@@ -1,4 +1,4 @@
-package com.example.ingredienttracker.ui.main;
+package com.example.ingredienttracker.ui.main.Fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -20,6 +20,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.ingredienttracker.R;
 import com.example.ingredienttracker.ui.main.Adapter.CustomExpandableListAdapter;
+import com.example.ingredienttracker.ui.main.IngredientItem;
+import com.example.ingredienttracker.ui.main.Meal;
+import com.example.ingredienttracker.ui.main.MealList;
 
 import java.util.ArrayList;
 import java.util.Calendar;

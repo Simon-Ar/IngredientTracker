@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +23,16 @@ public class TimerRecyclerViewAdapter extends RecyclerView.Adapter<TimerRecycler
 
     ArrayList<IngredientItem> mIngredients;
     int limit;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onDeleteClick(int position);
+        void onDetailsClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
 
     public TimerRecyclerViewAdapter(ArrayList<IngredientItem> mIngredients, int limit) {
         this.mIngredients = mIngredients;
@@ -33,7 +44,7 @@ public class TimerRecyclerViewAdapter extends RecyclerView.Adapter<TimerRecycler
     @Override
     public TimerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_timers,parent,false);
-        TimerViewHolder tvh = new TimerViewHolder(v);
+        TimerViewHolder tvh = new TimerViewHolder(v, mListener);
         return tvh;
     }
 
@@ -74,9 +85,11 @@ public class TimerRecyclerViewAdapter extends RecyclerView.Adapter<TimerRecycler
         public TextView mName;
         public ImageView mIcon;
         public TextView mDays;
-        public  TextView mHours;
+        public TextView mHours;
+        public Button mDelete;
+        public Button mDetail;
 
-        public TimerViewHolder(@NonNull View itemView) {
+        public TimerViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             mTitleBar = itemView.findViewById(R.id.timerTitleCard);
             mCard = itemView.findViewById(R.id.timerCard);
@@ -84,6 +97,18 @@ public class TimerRecyclerViewAdapter extends RecyclerView.Adapter<TimerRecycler
             mIcon = itemView.findViewById(R.id.ingredientIcon);
             mDays = itemView.findViewById(R.id.timerDays);
             mHours = itemView.findViewById(R.id.timerHours);
+            mDelete = itemView.findViewById(R.id.btnTimerDelete);
+            mDetail = itemView.findViewById(R.id.btnTimerDetail);
+
+            mDelete.setOnClickListener(v -> {
+                if (listener!=null){
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION){
+                        listener.onDeleteClick(position);
+                        listener.onDetailsClick(position);
+                    }
+                }
+            });
 
         }
 

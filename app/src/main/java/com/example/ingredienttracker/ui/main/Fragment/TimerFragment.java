@@ -1,4 +1,4 @@
-package com.example.ingredienttracker.ui.main;
+package com.example.ingredienttracker.ui.main.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ingredienttracker.R;
-import com.example.ingredienttracker.ui.main.Fragment.TimerHomeFragment;
 
 public class TimerFragment extends Fragment {
     View timer_fragment;

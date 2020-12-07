@@ -9,33 +9,36 @@
         app:cardElevation="4dp"
         android:outlineAmbientShadowColor="@color/black"
         >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/mealItemImg"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"
-            android:layout_above="@id/mealItemName"
+            android:layout_above="@+id/mealItemName"
             />
+
         <TextView
             android:id="@+id/mealItemName"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
             android:autoSizeMaxTextSize="40dp"
             android:autoSizeMinTextSize="14dp"
-            android:text="Food"
-            android:layout_centerHorizontal="true"
             android:gravity="center"
             android:layout_alignParentBottom="true"
-            android:layout_margin="4dp"
-            />
+            android:text="@string/food" />
 
-        </RelativeLayout>
+    </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
