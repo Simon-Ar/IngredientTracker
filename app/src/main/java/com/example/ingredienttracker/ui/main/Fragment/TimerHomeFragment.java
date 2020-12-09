@@ -90,57 +90,49 @@ public class TimerHomeFragment extends Fragment {
     }
 
     public void addListeners(Context ctx) {
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar today = Calendar.getInstance();
-                AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
-                LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-                View dialogView = layoutInflater.inflate(R.layout.input_dialog, null);
-                alert.setView(dialogView);
-                alert.setTitle("Add Ingredient");
-                Calendar c = Calendar.getInstance();
-                TextView date = dialogView.findViewById(R.id.date);
-                date.setText(String.format("%d/%d/%d",
-                        today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DAY_OF_MONTH)));
-                TextView name = dialogView.findViewById(R.id.inputName);
-                name.setText("Chicken");
-                Button mBtnCreate = dialogView.findViewById(R.id.btnCreate);
-                Button mBtnCancel = dialogView.findViewById(R.id.btnCancel);
-                alertDialog = alert.create();
-                alertDialog.show();
+        mFab.setOnClickListener(v -> {
+            Calendar today = Calendar.getInstance();
+            AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
+            LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+            View dialogView = layoutInflater.inflate(R.layout.input_dialog, null);
+            alert.setView(dialogView);
+            alert.setTitle("Add Ingredient");
+            Calendar c = Calendar.getInstance();
+            TextView date = dialogView.findViewById(R.id.date);
+            date.setText(String.format("%d/%d/%d",
+                    today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DAY_OF_MONTH)));
+            TextView name = dialogView.findViewById(R.id.inputName);
+            name.setText("Chicken");
+            Button mBtnCreate = dialogView.findViewById(R.id.btnCreate);
+            Button mBtnCancel = dialogView.findViewById(R.id.btnCancel);
+            alertDialog = alert.create();
+            alertDialog.show();
 
-                date.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        picker = new DatePickerDialog(ctx, new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                c.set(Calendar.YEAR, year);
-                                c.set(Calendar.MONTH, month);
-                                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                date.setText(String.format("%d/%d/%d",
-                                        c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH)));
-                            }
-                        }, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
-                        picker.show();
-                    }
-                });
+            date.setOnClickListener(v13 -> {
+                picker = new DatePickerDialog(ctx, (view, year, month, dayOfMonth) -> {
+                    c.set(Calendar.YEAR, year);
+                    c.set(Calendar.MONTH, month);
+                    c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    date.setText(String.format("%d/%d/%d",
+                            c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH)));
+                }, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
+                picker.show();
+            });
 
-                mBtnCreate.setOnClickListener(v1 -> {
-                    IngredientItem newIngredient = new IngredientItem(today, c, name.getText().toString());
-                    MainActivity.mIngredients.add(newIngredient);
-                    Collections.sort(MainActivity.mIngredients);
-                    int index = MainActivity.mIngredients.indexOf(newIngredient);
-                    updateLength();
-                    adapter = new TimerRecyclerViewAdapter(MainActivity.mIngredients, limit);
-                    recyclerView.setAdapter(adapter);
-                    alertDialog.dismiss();
-                });
+            mBtnCreate.setOnClickListener(v1 -> {
+                IngredientItem newIngredient = new IngredientItem(today, c, name.getText().toString());
+                new DataRequestCreate().execute(newIngredient);
+                MainActivity.mIngredients.add(newIngredient);
+                Collections.sort(MainActivity.mIngredients);
+                int index = MainActivity.mIngredients.indexOf(newIngredient);
+                updateLength();
+                adapter = new TimerRecyclerViewAdapter(MainActivity.mIngredients, limit);
+                recyclerView.setAdapter(adapter);
+                alertDialog.dismiss();
+            });
 
-                mBtnCancel.setOnClickListener(v12 -> alertDialog.dismiss());
+            mBtnCancel.setOnClickListener(v12 -> alertDialog.dismiss());
 
-            }
         });
     }
 
