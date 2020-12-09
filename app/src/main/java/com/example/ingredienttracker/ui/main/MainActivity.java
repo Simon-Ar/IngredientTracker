@@ -3,26 +3,22 @@ package com.example.ingredienttracker.ui.main;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.SearchView;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.ingredienttracker.R;
+import com.example.ingredienttracker.ui.main.Fragment.AccountFragment;
 import com.example.ingredienttracker.ui.main.Fragment.IngredientFragment;
 import com.example.ingredienttracker.ui.main.Fragment.MainFragment;
+import com.example.ingredienttracker.ui.main.Fragment.MapsFragment;
 import com.example.ingredienttracker.ui.main.Fragment.MealsFragment;
 import com.example.ingredienttracker.ui.main.Fragment.TimerHomeFragment;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,7 +40,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity{
 
     public static ArrayList<IngredientItem> mIngredients = new ArrayList<>();
     private AnimatedBottomBar bottomBar;
@@ -54,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private final String TAG = "Main Activity";
     private ArrayList<AnimatedBottomBar.Tab> tabs;
     private final FragmentManager fm = getSupportFragmentManager();
+    private final MapsFragment mapFragment = new MapsFragment();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +61,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         bottomBar = findViewById(R.id.navBar);
         Calendar tomorrow = Calendar.getInstance();
         tabs = bottomBar.getTabs();
+
+        toolbar = findViewById(R.id.topAppBar);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.nav_account:
+                        AccountFragment accountFragment = new AccountFragment();
+                        fm.beginTransaction()
+                                .remove(current)
+                                .replace(R.id.frmMain, accountFragment)
+                                .addToBackStack("Stack")
+                                .commit();
+                        current = accountFragment;
+                        return true;
+                }
+                return false;
+            }
+        });
 
         bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
@@ -87,8 +105,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             .commit();
                     current = ingredientFragment;
                 } else if (tab1 == tabs.get(2)) {
-                    SupportMapFragment mapFragment = new SupportMapFragment();
-                    mapFragment.getMapAsync(MainActivity.this);
                     fm.beginTransaction()
                             .remove(current)
                             .replace(R.id.frmMain, mapFragment)
@@ -113,33 +129,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         tomorrow.add(Calendar.DATE, 1);
-//        mIngredients.add(
-//                new IngredientItem(today, tomorrow, "Chicken")
-//        );
-//        mIngredients.add(
-//                new IngredientItem(today, tomorrow, "Carrot")
-//        );
-//        tomorrow.add(Calendar.DATE, 2);
-//        mIngredients.add(
-//                new IngredientItem(today, tomorrow, "Beef")
-//        );
-//        mIngredients.add(
-//                new IngredientItem(today, tomorrow, "Celery")
-//        );
-//        tomorrow.add(Calendar.DATE, 3);
-//        mIngredients.add(
-//                new IngredientItem(today, tomorrow, "Onion")
-//        );
-//        mIngredients.add(
-//                new IngredientItem(today, tomorrow, "Spinach")
-//        );
-//        tomorrow.add(Calendar.DATE, 2);
-//        mIngredients.add(
-//                new IngredientItem(today, tomorrow, "Pork")
-//        );
-//        mIngredients.add(
-//                new IngredientItem(today, tomorrow, "Fish")
-//        );
 
         try {
             new DataRequest().execute(new URL("http://192.168.1.181:8080/api/v1/users/" + FirebaseAuth.getInstance().getCurrentUser().getUid()));
@@ -152,31 +141,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .replace(R.id.frmMain, mainFragment)
                 .commit();
         current = mainFragment;
-    }
-
-    public void getDetails(int position) {
-        IngredientFragment ingredientFragment = new IngredientFragment();
-        fm.beginTransaction()
-                .remove(current)
-                .replace(R.id.frmMain, ingredientFragment)
-                .commit();
-        current = ingredientFragment;
-        SearchView searcher = findViewById(R.id.search);
-        if (position != 0) {
-            searcher.setQuery(mIngredients.get(position).getName(), true);
-        }
-    }
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        //TODO add more interactivity to the map
-        GoogleMapOptions options = new GoogleMapOptions()
-                .liteMode(true);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(0, 0))
-                .title("Marker"));
     }
 
     public class DataRequest extends AsyncTask<URL, Integer, String> {

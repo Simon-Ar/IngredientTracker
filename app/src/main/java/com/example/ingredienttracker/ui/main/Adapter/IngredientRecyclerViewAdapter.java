@@ -1,7 +1,6 @@
 package com.example.ingredienttracker.ui.main.Adapter;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,21 +18,8 @@ import com.example.ingredienttracker.R;
 import com.example.ingredienttracker.ui.main.IngredientItem;
 
 import org.joda.time.DateTime;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<IngredientRecyclerViewAdapter.IngredientViewHolder> {
 
@@ -49,8 +35,6 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
     public void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;
     }
-
-
 
     public IngredientRecyclerViewAdapter(ArrayList<IngredientItem> mIngredients) {
         this.mIngredients = mIngredients;
@@ -88,7 +72,6 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
         holder.mEntered.setText(entered.getYear()+"/"+entered.getMonthOfYear()+"/"+entered.getDayOfMonth());
         holder.mDays.setText(""+mIngredient.getTimeLeft()[0]);
         holder.mHours.setText(""+mIngredient.getTimeLeft()[1]);
-
     }
 
     @Override

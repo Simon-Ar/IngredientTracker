@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topAppBar"
+        android:layout_below="@id/toolbar"
         android:layout_above="@id/navBar"
         android:id="@+id/frmMain"
         />
@@ -39,9 +39,9 @@
 
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
         android:layout_alignParentTop="true">
 
         <com.google.android.material.appbar.MaterialToolbar

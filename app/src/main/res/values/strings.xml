@@ -16,4 +16,5 @@
     <string name="ingredient_name">Ingredient Name</string>
     <string name="date_added">Date Added:</string>
     <string name="food">Food</string>
+    <string name="log_out">Log Out</string>
 </resources>
