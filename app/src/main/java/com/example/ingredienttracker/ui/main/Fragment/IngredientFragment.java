@@ -114,7 +114,7 @@ public class IngredientFragment extends Fragment implements SearchView.OnQueryTe
         protected String doInBackground(IngredientItem... items) {
             OkHttpClient client = new OkHttpClient();
             try {
-                URL url = new URL("http://192.168.1.181:8080/api/v1/users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+                URL url = new URL("https://evening-falls-76333.herokuapp.com/api/v1/users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
                 String entered = items[0].toString().split(" ")[2].substring(0, 10);
                 String expiry = items[0].toString().split(" ")[4].substring(0, 10);
                 String s = "{\"user_id\":\"" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "\",\"ingredients\":[{\"name\":\"" + items[0].getName() + "\"," + "\"entered\":\"" + entered + "\"," + "\"expiry\":\"" + expiry + "\"}]}";
