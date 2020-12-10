@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity{
         tomorrow.add(Calendar.DATE, 1);
 
         try {
-            new DataRequest().execute(new URL("http://192.168.1.181:8080/api/v1/users/" + FirebaseAuth.getInstance().getCurrentUser().getUid()));
+            new DataRequest().execute(new URL("https://evening-falls-76333.herokuapp.com/api/v1/users/" + FirebaseAuth.getInstance().getCurrentUser().getUid()));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
